@@ -17,6 +17,42 @@
     specific language governing permissions and limitations
     under the License.
 -->
+
+<!doctype html>
+<html lang="en" ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <title>My AngularJS App</title>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" href="app/css/app.css"/>
+    <script type="text/javascript" src="phonegap.js"></script>
+  </head>
+  <body>
+    <ul class="menu">
+      <li><a href="#/view1">view1</a></li>
+      <li><a href="#/view2">view2</a></li>
+    </ul>
+
+    <h1>Introduction to Angular.JS</h1>
+    <div ng-view></div>
+
+    <div>Angular seed app: v<span app-version></span></div>
+
+    <!-- In production use:
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    -->
+    <script src="app/lib/angular/angular.js"></script>
+    <script src="app/js/app.js"></script>
+    <script src="app/js/services.js"></script>
+    <script src="app/js/controllers.js"></script>
+    <script src="app/js/filters.js"></script>
+    <script src="app/js/directives.js"></script>
+  </body>
+</html>
+
+
+<!-- 
 <html lang="en" ng-app="app">
   <head>
     <meta charset="utf-8" />
@@ -36,9 +72,6 @@
         <div id="view" ng-view></div>
       </div>
     </div>
-    <!-- <script type="text/javascript" src="app/scripts/index.js"></script> 
-    <script type="text/javascript">
-        app.initialize();
-    </script> -->
   </body>
 </html>
+-->
