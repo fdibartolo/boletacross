@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.controllers', []).
+angular.module('Prode.controllers', []).
   controller('LoginController', ['$scope', function($scope) {
     $scope.credentials = { username: "", password: "" };
 
