@@ -1,9 +1,13 @@
 'use strict';
 
-/* Services */
+angular.module('Prode.services', [])
+  .factory("AuthenticationService", function() {
+    return {
+      login: function(credentials) {
+        alert("Username: " + credentials.username + ", password: " + credentials.password);
+      }
+    };
+  });
 
-
-// Demonstrate how to register services
-// In this case it is a simple value service.
-angular.module('Prode.services', []).
+angular.module('Prode.constants', []).
   value('version', '0.1');

@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('Prode.controllers', []).
-  controller('LoginController', ['$scope', function($scope) {
+  controller('LoginController', ['$scope', 'AuthenticationService', function($scope, AuthenticationService) {
     $scope.credentials = { username: "", password: "" };
 
     $scope.login = function() {
-      alert("Username: " + $scope.credentials.username + ", password: " + $scope.credentials.password);
+      AuthenticationService.login($scope.credentials);
+      // alert("Username: " + $scope.credentials.username + ", password: " + $scope.credentials.password);
     }
   }])
   .controller('MyCtrl2', [function() {
