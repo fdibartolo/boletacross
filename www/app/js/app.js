@@ -1,7 +1,6 @@
 'use strict';
 
-// Declare app level module which depends on filters, and services
-angular.module('Prode', ['Prode.filters', 'Prode.services', 'Prode.directives', 'Prode.controllers', 'Prode.constants']).
+angular.module('Prode', ['jqm','Prode.filters', 'Prode.services', 'Prode.directives', 'Prode.controllers', 'Prode.constants']).
   config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/', {
       templateUrl: 'app/partials/login.html'

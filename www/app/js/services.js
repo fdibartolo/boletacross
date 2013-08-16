@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('Prode.services', [])
+angular.module('Prode.services', ['jqm'])
   .factory("AuthenticationService", function() {
     return {
       login: function(credentials) {

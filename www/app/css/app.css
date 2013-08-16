@@ -1,9 +1,4 @@
-body {
+#login_form {
   background-color: black;
-}
-
-.header {
-  color: white;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
+  margin-top: 4em;
 }
