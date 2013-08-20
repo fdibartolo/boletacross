@@ -1,12 +1,15 @@
 'use strict';
 
 angular.module('Prode', ['jqm','Prode.filters', 'Prode.services', 'Prode.directives', 'Prode.controllers', 'Prode.constants']).
-  config(['$routeProvider', function($routeProvider) {
+  config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
     $routeProvider.when('/', {
       templateUrl: 'app/partials/login.html'
       , controller: 'LoginController'});
     
     $routeProvider.otherwise({redirectTo: '/'});
+    
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common["X-Requested-With"]
   }]);
 
 
