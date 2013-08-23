@@ -10,10 +10,23 @@
     <script type="text/javascript" src="phonegap.js"></script>
   </head>
   <body>
-    <div jqm-header><h1>Comunidad Prode</h1></div>
-    <div jqm-caching-view></div>
-    <!-- <div jqm-footer><h1>Fixed Footer</h1></div> -->
-    <!-- <div>Angular seed app: v<span app-version></span></div> -->
+    <div ng-init="panelMenuState={}"></div>
+    <div jqm-panel-container="panelMenuState.openPanel" style="height:100%;overflow:hidden">
+      <div jqm-header>
+        <table width="100%">
+          <td width="4%">
+            <div jqm-button ng-click="panelMenuState.openPanel='left'" class="ui-icon ui-icon-bars"></div>
+          </td>
+          <td width="92%"><h1>Comunidad Prode</h1></td>
+        </table>
+      </div>
+      <br><br><br><br>
+      <div jqm-caching-view></div>
+      <div jqm-panel position="left" display="reveal">
+        <h4>Hello, panel!</h4>
+        <div side-menu></div>
+      </div>
+    </div>
 
     <!-- In production use:
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>

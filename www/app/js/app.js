@@ -1,16 +1,43 @@
 'use strict';
 
-angular.module('Prode', ['jqm','Prode.filters', 'Prode.services', 'Prode.directives', 'Prode.controllers', 'Prode.constants']).
-  config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
-    $routeProvider.when('/', {
-      templateUrl: 'app/partials/login.html'
-      , controller: 'LoginController'});
-    
-    $routeProvider.otherwise({redirectTo: '/'});
-    
-    $httpProvider.defaults.useXDomain = true;
-    delete $httpProvider.defaults.headers.common["X-Requested-With"]
-  }]);
+var app = angular.module('Prode', [
+  'jqm',
+  'Prode.filters', 
+  'Prode.services', 
+  'Prode.directives', 
+  'Prode.controllers', 
+  'Prode.constants'
+]);
+
+app.config(['$routeProvider', function($routeProvider) {
+  $routeProvider.when('/login', {
+    templateUrl: 'app/partials/login.html',
+    controller: 'LoginController'});
+
+  $routeProvider.when('/community', {
+    animation: 'page-slide',
+    templateUrl: 'app/partials/community.html',
+    controller: 'CommunityController'});
+
+  $routeProvider.otherwise({redirectTo: '/login'});
+}]);
+
+app.factory('httpInterceptor', ['$q', '$location', function ($q, $location) {
+  return {
+    responseError: function (response) {
+      if (response.status == 401) {
+        $location.path('/login');
+        return;
+      }
+      return $q.reject(response);
+    }
+  };
+}]);
+
+app.config(['$httpProvider', function ($httpProvider) {
+  $httpProvider.interceptors.push('httpInterceptor');
+}]);
+
 
 
 
