@@ -2,10 +2,12 @@
 
 angular.module('Prode.controllers', ['jqm']).
   controller('LoginController', [
-    '$scope', 'AuthenticationService', function($scope, AuthenticationService) {
+    '$scope', '$location', 'AuthenticationService', function($scope, $location, AuthenticationService) {
       $scope.credentials = { username: "", password: "" };
       $scope.login = function() {
-        AuthenticationService.login($scope.credentials);
+        AuthenticationService.login($scope.credentials).then(function() {
+          $location.path('/community');
+        });
       }
   }])
   .controller('CommunityController', [

@@ -11,8 +11,19 @@ angular.module('Prode.directives', ['jqm']).
       AuthenticationService.logout();
     };
   }]).
-  directive('sideMenu', [function(){
+  directive('sideMenu', ['CommunityService', function(CommunityService){
     return function(scope, elm, attrs){
-      elm.text('eeededededf');
+      var rankings;
+      CommunityService.getCommunityStats().then(function(stats) {
+        rankings = stats;
+
+        //build ranking menu
+      });
+
+      var htmlText = '<div>' +
+        '<div>iiiiiiiiii</div>' +
+        '<div>aaaaa</div>' +
+        '</div>';
+      elm.replaceWith(htmlText);
     };
   }]);
