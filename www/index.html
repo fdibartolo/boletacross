@@ -9,7 +9,7 @@
     <link type="text/css" rel="stylesheet" href="app/lib/jquery-mobile/jquery.mobile-1.3.1.min.css">
     <script type="text/javascript" src="phonegap.js"></script>
   </head>
-  <body>
+  <body ng-controller="MenuController">
     <div ng-init="panelMenuState={}"></div>
     <div jqm-panel-container="panelMenuState.openPanel" style="height:100%;overflow:hidden">
       <div jqm-header>
@@ -20,8 +20,11 @@
           <td width="92%" style="text-align:center">Comunidad Prode</td>
         </table>
       </div>
-      <br><br><br><br>
+      <br><br><br>
       <div jqm-caching-view></div>
+      <div jqm-panel position="left" display="reveal">
+        <div menu></div>
+      </div>
     </div>
 
     <!-- In production use:

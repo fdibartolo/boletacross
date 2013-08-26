@@ -8,11 +8,18 @@ angular.module('Prode.services', ['jqm'])
 
         getCurrentUser: function(){ return $rootScope.currentUser; },
 
-        clearCurrentUser: function(){ $rootScope.currentUser = ''; },
+        clearSession: function(){ 
+          $rootScope.currentUser = null;
+          $rootScope.shouldLoadMenu = false;
+        },
 
         setAuthToken: function(token) { $rootScope.authToken = token; },
 
-        getAuthHeader: function() { return { headers: { 'Authorization': $rootScope.authToken }}; } 
+        getAuthHeader: function() { return { headers: { 'Authorization': $rootScope.authToken }}; },
+
+        isUserLoggedIn: function(){ return
+          (($rootScope.currentUser !== undefined) && ($rootScope.currentUser !== null));
+        },
       };
   }])
   .factory('AuthenticationService', [
@@ -38,7 +45,7 @@ angular.module('Prode.services', ['jqm'])
       };
 
       var logout = function() {
-        SessionService.clearCurrentUser();
+        SessionService.clearSession();
         $location.path('/login');
       };
 

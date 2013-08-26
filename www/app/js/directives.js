@@ -11,19 +11,30 @@ angular.module('Prode.directives', ['jqm']).
       AuthenticationService.logout();
     };
   }]).
-  directive('sideMenu', ['CommunityService', function(CommunityService){
-    return function(scope, elm, attrs){
-      var rankings;
-      CommunityService.getCommunityStats().then(function(stats) {
-        rankings = stats;
+  directive('menu', [
+    '$rootScope', 'CommunityService', function($rootScope, CommunityService){
+      return {
+        restrict: 'A',
+        template:
+          "<div>" +
+          // "  {{name}}: <input ng-model='amount' />" +
+          // "  <button ng-click='save()'>Save</button>" +
+          "  <div>Loaded: {{shouldLoadMenu}}</div>" +
+          "</div>",
+        replace: true,
+        link: function (scope, element, attrs, controller) {
+          scope.$watch("shouldLoadMenu", function (shouldLoadMenu) {
+            console.log("shouldLoadMenu has changed to: " + shouldLoadMenu);
 
-        //build ranking menu
-      });
+            if (shouldLoadMenu) {
+              CommunityService.getCommunityStats().then(function(stats) {
+                console.log('Community Loaded:');
+                console.log(stats);
 
-      var htmlText = '<div>' +
-        '<div>iiiiiiiiii</div>' +
-        '<div>aaaaa</div>' +
-        '</div>';
-      elm.replaceWith(htmlText);
-    };
+                //build ranking menu
+              });
+            }
+          });
+        }
+      }
   }]);
