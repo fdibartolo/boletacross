@@ -15,12 +15,13 @@ angular.module('Prode.directives', ['jqm']).
     '$rootScope', 'CommunityService', function($rootScope, CommunityService){
       return {
         restrict: 'A',
-        template:
-          "<div>" +
-          // "  {{name}}: <input ng-model='amount' />" +
-          // "  <button ng-click='save()'>Save</button>" +
-          "  <div>Loaded: {{shouldLoadMenu}}</div>" +
-          "</div>",
+        templateUrl: 'app/partials/menu.html',
+        // template:
+        //   "<div>" +
+        //   // "  {{name}}: <input ng-model='amount' />" +
+        //   // "  <button ng-click='save()'>Save</button>" +
+        //   "  <div>Loaded: {{shouldLoadMenu}}</div>" +
+        //   "</div>",
         replace: true,
         link: function (scope, element, attrs, controller) {
           scope.$watch("shouldLoadMenu", function (shouldLoadMenu) {
