@@ -12,27 +12,21 @@ angular.module('Prode.directives', ['jqm']).
     };
   }]).
   directive('menu', [
-    '$rootScope', 'CommunityService', function($rootScope, CommunityService){
+    '$rootScope', 'SessionService', 'CommunityService', function($rootScope, SessionService, CommunityService){
       return {
         restrict: 'A',
         templateUrl: 'app/partials/menu.html',
-        // template:
-        //   "<div>" +
-        //   // "  {{name}}: <input ng-model='amount' />" +
-        //   // "  <button ng-click='save()'>Save</button>" +
-        //   "  <div>Loaded: {{shouldLoadMenu}}</div>" +
-        //   "</div>",
         replace: true,
         link: function (scope, element, attrs, controller) {
           scope.$watch("shouldLoadMenu", function (shouldLoadMenu) {
             console.log("shouldLoadMenu has changed to: " + shouldLoadMenu);
 
             if (shouldLoadMenu) {
-              CommunityService.getCommunityStats().then(function(stats) {
-                console.log('Community Loaded:');
-                console.log(stats);
+              var user = SessionService.getCurrentUser();
+              scope.user = user.first_name + ' ' + user.last_name
 
-                //build ranking menu
+              CommunityService.getCommunityStats().then(function(stats) {
+                scope.stats = stats;
               });
             }
           });

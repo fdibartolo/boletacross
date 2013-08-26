@@ -17,9 +17,9 @@ angular.module('Prode.services', ['jqm'])
 
         getAuthHeader: function() { return { headers: { 'Authorization': $rootScope.authToken }}; },
 
-        isUserLoggedIn: function(){ return
-          (($rootScope.currentUser !== undefined) && ($rootScope.currentUser !== null));
-        },
+        // isUserLoggedIn: function(){ return
+        //   (($rootScope.currentUser !== undefined) && ($rootScope.currentUser !== null));
+        // },
       };
   }])
   .factory('AuthenticationService', [
@@ -33,7 +33,7 @@ angular.module('Prode.services', ['jqm'])
         $http.get(usersUrl, custom_headers).
           success(function(data, status) {
             SessionService.setAuthToken(auth);
-            SessionService.setCurrentUser(data.nick_name);
+            SessionService.setCurrentUser(data);
             deferred.resolve();
           }).
           error(function(data, status) {
