@@ -13,9 +13,7 @@ angular.module('Prode.directives', ['jqm'])
         templateUrl: 'app/partials/menu.html',
         replace: true,
         link: function (scope, element, attrs, controller) {
-          scope.$watch("shouldLoadMenu", function (shouldLoadMenu) {
-            console.log("shouldLoadMenu has changed to: " + shouldLoadMenu);
-
+          scope.$watch('shouldLoadMenu', function(shouldLoadMenu) {
             if (shouldLoadMenu) {
               var user = SessionService.getCurrentUser();
               scope.user = user.first_name + ' ' + user.last_name;
