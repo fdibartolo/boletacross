@@ -25,6 +25,8 @@ angular.module('Prode.controllers', ['jqm']).
     '$scope', 'SessionService', function($scope, SessionService) {
 
       $scope.$watch(SessionService.getCurrentCommunityStatsIndex, function (index) {
-        $scope.currentStats = SessionService.getCommunityStats()[index];;
+        if (index !== undefined) {
+          $scope.currentStats = SessionService.getCommunityStats()[index];
+        }
       });
   }]);
