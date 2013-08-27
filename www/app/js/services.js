@@ -3,6 +3,9 @@
 angular.module('Prode.services', ['jqm'])
   .factory('SessionService', [
     '$rootScope', function($rootScope){
+      var communityStats;
+      var currentCommunityStatsIndex;
+
       return {
         setCurrentUser: function(user){ $rootScope.currentUser = user; },
 
@@ -20,6 +23,14 @@ angular.module('Prode.services', ['jqm'])
         // isUserLoggedIn: function(){ return
         //   (($rootScope.currentUser !== undefined) && ($rootScope.currentUser !== null));
         // },
+
+        setCommunityStats: function(stats) { communityStats = stats; },
+
+        getCommunityStats: function() { return communityStats; },
+
+        setCurrentCommunityStatsIndex: function(index) { currentCommunityStatsIndex = index; },
+
+        getCurrentCommunityStatsIndex: function() { return currentCommunityStatsIndex; },
       };
   }])
   .factory('AuthenticationService', [

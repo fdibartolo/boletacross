@@ -3,7 +3,9 @@
 angular.module('Prode.controllers', ['jqm']).
   controller('LoginController', [
     '$rootScope', '$scope', '$location', 'AuthenticationService', function($rootScope, $scope, $location, AuthenticationService) {
+      $rootScope.shouldLoadMenu = false;
       $scope.credentials = { username: "", password: "" };
+
       $scope.login = function() {
         AuthenticationService.login($scope.credentials).then(function() {
           $rootScope.shouldLoadMenu = true;
@@ -12,10 +14,17 @@ angular.module('Prode.controllers', ['jqm']).
       }
   }])
   .controller('MenuController', [
-    '$rootScope', function($rootScope) {
+    '$rootScope', '$scope', 'SessionService', function($rootScope, $scope, SessionService) {
       $rootScope.shouldLoadMenu = false;
+
+      $scope.displayRankingFor = function(id) {
+        SessionService.setCurrentCommunityStatsIndex(id);
+      }
   }])
   .controller('CommunityController', [
-    'SessionService', function(SessionService) {
-      var currentUser = SessionService.getCurrentUser();
+    '$scope', 'SessionService', function($scope, SessionService) {
+
+      $scope.$watch(SessionService.getCurrentCommunityStatsIndex, function (index) {
+        $scope.currentStats = SessionService.getCommunityStats()[index];;
+      });
   }]);

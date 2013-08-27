@@ -1,7 +1,7 @@
 <div>
   <div>{{user}}</div>
   <ul>
-    <li ng-repeat="stat in stats">
+    <li ng-repeat="stat in stats" ng-click="displayRankingFor({{$index}})">
       {{stat.group_name || stat.tournament_name}}
     </li>
   </ul>

@@ -18,11 +18,15 @@ angular.module('Prode.directives', ['jqm'])
 
             if (shouldLoadMenu) {
               var user = SessionService.getCurrentUser();
-              scope.user = user.first_name + ' ' + user.last_name
+              scope.user = user.first_name + ' ' + user.last_name;
 
               CommunityService.getCommunityStats().then(function(stats) {
                 scope.stats = stats;
+                SessionService.setCommunityStats(stats);
               });
+            } else {
+              scope.user = null;
+              scope.stats = null;
             }
           });
         }

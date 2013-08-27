@@ -1,4 +1,10 @@
-<br><br>
-<h1>Hello Community</h1>
-<br>
-<!-- <a href='#/logout' link-to-logout>Logout</a> -->
+<div jqm-page>
+  <div>
+    <div>Ranking for {{currentStats.group_name || currentStats.tournament_name}}</div>
+    <ul>
+      <li ng-repeat="r in currentStats.ranking">
+        {{r.nick_name}}: {{r.points}}
+      </li>
+    </ul>
+  </div>
+</div>
