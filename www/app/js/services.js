@@ -3,25 +3,27 @@
 angular.module('Prode.services', ['jqm'])
   .factory('SessionService', [
     '$rootScope', function($rootScope){
+      var currentUser;
+      var authToken;
       var communityStats;
       var currentCommunityStatsIndex;
 
       return {
-        setCurrentUser: function(user){ $rootScope.currentUser = user; },
+        setCurrentUser: function(user){ currentUser = user; },
 
-        getCurrentUser: function(){ return $rootScope.currentUser; },
+        getCurrentUser: function(){ return currentUser; },
 
         clearSession: function(){ 
-          $rootScope.currentUser = null;
+          currentUser = null;
           $rootScope.shouldLoadMenu = false;
         },
 
-        setAuthToken: function(token) { $rootScope.authToken = token; },
+        setAuthToken: function(token) { authToken = token; },
 
-        getAuthHeader: function() { return { headers: { 'Authorization': $rootScope.authToken }}; },
+        getAuthHeader: function() { return { headers: { 'Authorization': authToken }}; },
 
         // isUserLoggedIn: function(){ return
-        //   (($rootScope.currentUser !== undefined) && ($rootScope.currentUser !== null));
+        //   ((currentUser !== undefined) && (currentUser !== null));
         // },
 
         setCommunityStats: function(stats) { communityStats = stats; },
@@ -49,7 +51,7 @@ angular.module('Prode.services', ['jqm'])
           }).
           error(function(data, status) {
             deferred.reject();
-            alert("Error: " + data);
+            alert("Error - Cannot authenticate user: " + data);
           });
 
         return deferred.promise;
@@ -77,7 +79,7 @@ angular.module('Prode.services', ['jqm'])
           }).
           error(function(data, status) {
             deferred.reject();
-            alert("Error: " + data);
+            alert("Error - Cannot load community stats: " + data);
           });
         
         return deferred.promise;
