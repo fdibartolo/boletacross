@@ -2,7 +2,7 @@
   <div>{{user}}</div>
   <ul>
     <li ng-repeat="stat in stats" ng-click="displayRankingFor({{$index}})">
-      {{stat.group_name || stat.tournament_name}}
+      <p ng-click="panelMenuState.openPanel='right'">{{stat.group_name || stat.tournament_name}}</p>
     </li>
   </ul>
 </div>
