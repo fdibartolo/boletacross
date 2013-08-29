@@ -14,11 +14,16 @@ angular.module('Prode.controllers', ['jqm']).
       }
   }])
   .controller('MenuController', [
-    '$rootScope', '$scope', 'SessionService', function($rootScope, $scope, SessionService) {
+    '$rootScope', '$scope', '$location', 'SessionService', 'AuthenticationService', function($rootScope, $scope, $location, SessionService, AuthenticationService) {
       $rootScope.shouldLoadMenu = false;
 
       $scope.displayRankingFor = function(id) {
         SessionService.setCurrentCommunityStatsIndex(id);
+      }
+
+      $scope.logout = function() {
+        AuthenticationService.logout();
+        $location.path('/login');
       }
   }])
   .controller('CommunityController', [

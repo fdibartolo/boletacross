@@ -59,7 +59,6 @@ angular.module('Prode.services', ['jqm'])
 
       var logout = function() {
         SessionService.clearSession();
-        $location.path('/login');
       };
 
       return {
