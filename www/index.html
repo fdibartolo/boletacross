@@ -12,7 +12,7 @@
   <body ng-controller="MenuController" jqm-theme="b">
     <div ng-init="panelMenuState={}"></div>
     <div jqm-panel-container="panelMenuState.openPanel" style="height:100%;overflow:hidden">
-      <div jqm-header>
+      <div jqm-header jqm-theme="b">
         <table width="100%">
           <td width="4%">
             <div jqm-button ng-click="panelMenuState.openPanel='left'" ng-show="shouldLoadMenu" class="ui-icon ui-icon-bars"></div>
@@ -20,8 +20,8 @@
           <td width="92%" style="text-align:center">Comunidad Prode</td>
         </table>
       </div>
-      <br><br><br>
-      <div jqm-caching-view></div>
+      <br><br>
+      <div jqm-caching-view id="view"></div>
       <div jqm-panel position="left" display="reveal" id="menu">
         <div menu></div>
       </div>
