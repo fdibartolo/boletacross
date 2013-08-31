@@ -1,10 +1,15 @@
 #banner {
   text-align:center; 
-  padding-top:.4em;
 }
 
 #view {
   color: white;
+}
+
+#menu_icon {
+  color: #FF7D00;
+  text-shadow: 0 0 11px white;
+  font-size: 1.4em;
 }
 
 #menu {
@@ -22,7 +27,6 @@ li p {
   text-decoration: none;
   display: block;
   padding-left: 0.9em;
-  /*text-shadow: -1px -1px 0 gray;*/
 }
 
 hr {
