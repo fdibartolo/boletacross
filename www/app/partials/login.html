@@ -1,9 +1,9 @@
 <div jqm-page>
-  <form>
+  <form id="login_form">
     <fieldset>
       <div jqm-textinput placeholder="usuario" ng-model="credentials.username"></div>
       <div jqm-textinput type="password" placeholder="contraseña" ng-model="credentials.password"></div>
-      <hr ><div jqm-button type="submit" ng-click="login()">Ingresar</div>
+      <div id="login_button" jqm-button type="submit" ng-click="login()">Ingresar</div>
     </fieldset>
   </form>
 </div>

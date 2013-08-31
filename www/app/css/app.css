@@ -11,3 +11,12 @@
   color: white;
   background: #3D3D3D;
 }
+
+#login_form {
+  padding-top:.5em;
+  margin: 1em 3em;
+}
+
+#login_button {
+  margin: 1em 3.5em;
+}
