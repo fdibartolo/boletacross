@@ -17,6 +17,7 @@ angular.module('Prode.directives', ['jqm'])
             if (shouldLoadMenu) {
               var user = SessionService.getCurrentUser();
               scope.user = user.first_name + ' ' + user.last_name;
+              scope.nickname = user.nick_name;
 
               CommunityService.getCommunityStats().then(function(stats) {
                 scope.stats = stats;
@@ -24,6 +25,7 @@ angular.module('Prode.directives', ['jqm'])
               });
             } else {
               scope.user = null;
+              scope.nickname = null;
               scope.stats = null;
             }
           });
