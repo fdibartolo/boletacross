@@ -12,6 +12,10 @@
   background: #3D3D3D;
 }
 
+#menu_content {
+  font-size: 0.8em;
+}
+
 #login_form {
   padding-top:.5em;
   margin: 1em 3em;
