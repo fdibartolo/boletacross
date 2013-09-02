@@ -15,8 +15,11 @@
       <div jqm-header jqm-theme="b">
         <table width="100%">
           <td width="4%">
-            <!-- <div jqm-button ng-click="panelMenuState.openPanel='left'" ng-show="shouldLoadMenu" class="ui-icon ui-icon-bars"></div> -->
-            <div id="menu_icon" ng-click="panelMenuState.openPanel='left'" ng-show="shouldLoadMenu">&#9776;</div>
+            <div id="menu_icon" ng-click="panelMenuState.openPanel='left'" ng-show="shouldLoadMenu">
+              <div class="rectangle"></div>
+              <div class="rectangle"></div>
+              <div class="rectangle"></div>
+            </div>
           </td>
           <td width="92%" id="banner">Comunidad Prode</td>
         </table>
