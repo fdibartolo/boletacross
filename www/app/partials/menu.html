@@ -1,11 +1,11 @@
 <div id="menu_content">
   <p>{{user}}<br><span>{{nickname}}</span></p>
-  <hr><p class="menu_title">Rankings</p>
+  <hr><p class="menu_title">Rankings</p><hr>
   <ul>
     <li ng-repeat="stat in stats" ng-click="displayRankingFor({{$index}})">
       <hr><p ng-click="panelMenuState.openPanel='right'">{{stat.group_name || stat.tournament_name}}</p>
     </li>
   </ul>
-  <hr><p class="menu_title">Tarjetas</p>
-  <div ng-click="logout()"><hr><p ng-click="panelMenuState.openPanel='right'">Salir</p></div>
+  <hr><p class="menu_title">Tarjetas</p><hr>
+  <div ng-click="logout()"><p ng-click="panelMenuState.openPanel='right'">Salir</p></div>
 </div>
