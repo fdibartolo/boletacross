@@ -1,5 +1,10 @@
 <div id="menu_content">
-  <p>{{user}}<br><span>{{nickname}}</span></p>
+  <table>
+    <td>
+      <img alt="fdibartolo" class="gravatar" src="http://si0.twimg.com/profile_images/1532846433/yo_normal.jpg" title="Mi avatar"/>
+    </td>
+    <td><div id="user_details"><p>{{user}}<br><span>{{nickname}}</span></p></div></td>
+  </table>
   <hr><p class="menu_title">Rankings</p><hr>
   <ul>
     <li ng-repeat="stat in stats" ng-click="displayRankingFor({{$index}})">
