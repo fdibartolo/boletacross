@@ -56,6 +56,13 @@ li p {
   text-decoration: none;
   display: block;
   padding-left: 0.9em;
+  webkit-transition: color 0.3s ease-in-out;
+  -o-transition: color 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out;
+}
+
+li:active {
+  color: #FF7D00;
 }
 
 hr {
@@ -77,6 +84,16 @@ hr {
   background-image:     -ms-linear-gradient( #FF7D00 /*{b-bup-background-start}*/, #833F00 /*{b-bup-background-end}*/); /* IE10 */
   background-image:      -o-linear-gradient( #FF7D00 /*{b-bup-background-start}*/, #833F00 /*{b-bup-background-end}*/); /* Opera 11.10+ */
   background-image:         linear-gradient( #FF7D00 /*{b-bup-background-start}*/, #833F00 /*{b-bup-background-end}*/);
+}
+
+#logout_link {
+  webkit-transition: color 0.3s ease-in-out;
+  -o-transition: color 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out;  
+}
+
+#logout_link:active {
+  color: #FF7D00;
 }
 
 /***** Login *****/
