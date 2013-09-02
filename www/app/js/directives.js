@@ -1,11 +1,6 @@
 'use strict';
 
 angular.module('Prode.directives', ['jqm'])
-  .directive('linkToLogout', ['AuthenticationService', function(AuthenticationService){
-    return function(){
-      AuthenticationService.logout();
-    };
-  }])
   .directive('menuIcon', function(){
       return {
         restrict: 'A',
