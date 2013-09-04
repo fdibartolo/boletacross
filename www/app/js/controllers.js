@@ -29,6 +29,7 @@ angular.module('Prode.controllers', ['jqm']).
   .controller('CommunityController', [
     '$scope', 'SessionService', function($scope, SessionService) {
 
+      $scope.currentUserNickName = SessionService.getCurrentUser().nick_name;
       $scope.$watch(SessionService.getCurrentCommunityStatsIndex, function (index) {
         if (index !== undefined) {
           $scope.currentStats = SessionService.getCommunityStats()[index];
