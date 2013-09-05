@@ -2732,12 +2732,14 @@ div.ui-slider-switch.ui-mini {
 /* panel */
 .ui-panel {
   width: 17em;
-  min-height: 100%;
-  max-height: none;
+/*  min-height: 100%;
+  max-height: none;*/
+  height: 100%;
   border-width: 0;
-  position: absolute;
+  position: fixed;
   top: 0;
   display: block;
+  overflow-y: auto;
 }
 .ui-panel-closed {
   width: 0;
@@ -2761,6 +2763,8 @@ div.ui-slider-switch.ui-mini {
 }
 .ui-panel-inner {
   padding: 15px;
+  height: 100%;
+  overflow-y: auto;
 }
 /* content-wrap */
 .ui-panel-content-wrap {
