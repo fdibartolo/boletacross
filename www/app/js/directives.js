@@ -9,7 +9,7 @@ angular.module('Prode.directives', ['jqm'])
       }
   })
   .directive('menu', [
-    '$rootScope', 'SessionService', 'CommunityService', function($rootScope, SessionService, CommunityService){
+    '$rootScope', 'SessionService', 'CommunityService', 'CardsService', function($rootScope, SessionService, CommunityService, CardsService){
       return {
         restrict: 'A',
         templateUrl: 'app/partials/menu.html',
@@ -25,6 +25,10 @@ angular.module('Prode.directives', ['jqm'])
               CommunityService.getCommunityStats().then(function(stats) {
                 scope.stats = stats;
                 SessionService.setCommunityStats(stats);
+                CardsService.getCards().then(function(cards){
+                  scope.cards = CardsService.buildCardMenuItems(cards);
+                  // SessionService.setCards(cards);
+                });
               });
             } else {
               scope.user = null;

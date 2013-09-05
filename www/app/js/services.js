@@ -87,5 +87,40 @@ angular.module('Prode.services', ['jqm'])
       return {
         getCommunityStats: getCommunityStats
       };
-  }]);
+  }])
+  .factory('CardsService', [
+    '$q', '$http', 'cardsUrl', 'SessionService', function($q, $http, cardsUrl, SessionService) {
 
+      var getCards = function() {
+        var deferred = $q.defer();
+
+        $http.get(cardsUrl, SessionService.getAuthHeader()).
+          success(function(data, status) {
+            deferred.resolve(data);
+          }).
+          error(function(data, status) {
+            deferred.reject();
+            alert("Error - Cannot load cards: " + data);
+          });
+        
+        return deferred.promise;
+      }
+
+      var buildCardMenuItems = function(cards) {
+        var result = new Array();
+        var i = 0;
+
+        for (var c in cards) {
+          var tournament = cards[c].tournament_name.split('-')[0];
+          var week = cards[c].week_name.split('-')[0];
+          result[i] = tournament + ' - ' + week;
+          i++;
+        }
+        return result;
+      }
+
+      return {
+        getCards: getCards,
+        buildCardMenuItems: buildCardMenuItems
+      };
+  }]);
