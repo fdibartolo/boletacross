@@ -4,7 +4,7 @@ angular.module('Prode.controllers', ['jqm']).
   controller('LoginController', [
     '$rootScope', '$scope', '$location', 'AuthenticationService', function($rootScope, $scope, $location, AuthenticationService) {
       $rootScope.shouldLoadMenu = false;
-      $scope.credentials = { username: "", password: "" };
+      $scope.credentials = { username: "fdibartolo", password: "fdibartolo" };
 
       $scope.login = function() {
         AuthenticationService.login($scope.credentials).then(function() {
@@ -19,6 +19,12 @@ angular.module('Prode.controllers', ['jqm']).
 
       $scope.displayRankingFor = function(id) {
         SessionService.setCurrentCommunityStatsIndex(id);
+        $location.path('/community');
+      }
+
+      $scope.displayCardFor = function(id) {
+        SessionService.setCurrentCardIndex(id);
+        $location.path('/card');
       }
 
       $scope.logout = function() {
@@ -33,6 +39,18 @@ angular.module('Prode.controllers', ['jqm']).
       $scope.$watch(SessionService.getCurrentCommunityStatsIndex, function (index) {
         if (index !== undefined) {
           $scope.currentStats = SessionService.getCommunityStats()[index];
+        }
+      });
+  }])
+  .controller('CardsController', [
+    '$scope', 'SessionService', function($scope, SessionService) {
+
+      console.log('get card controller');
+      $scope.$watch(SessionService.getCurrentCardIndex, function (index) {
+        console.log('get card: ' + index);
+        if (index !== undefined) {
+          $scope.card = SessionService.getCards()[index];
+          console.log($scope.card);
         }
       });
   }]);

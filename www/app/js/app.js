@@ -19,6 +19,11 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'app/partials/community.html',
     controller: 'CommunityController'});
 
+  $routeProvider.when('/card', {
+    animation: 'page-slide',
+    templateUrl: 'app/partials/card.html',
+    controller: 'CardsController'});
+
   $routeProvider.otherwise({redirectTo: '/login'});
 }]);
 

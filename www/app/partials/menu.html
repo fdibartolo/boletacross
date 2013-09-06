@@ -11,10 +11,11 @@
   </ul>
   <hr><p class="menu_title">Tarjetas</p><hr>
   <ul>
-    <li ng-repeat="card in cards">
+    <li ng-repeat="card in cards" ng-click="displayCardFor({{$index}})">
       <hr><p ng-click="panelMenuState.openPanel='right'">{{card}}</p>
     </li>
   </ul>
   <hr>
   <div id="logout_link" ng-click="logout()"><p ng-click="panelMenuState.openPanel='right'">Salir</p></div>
+  <br><br><br>
 </div>

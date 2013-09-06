@@ -8,6 +8,7 @@ angular.module('Prode.services', ['jqm'])
       var communityStats;
       var currentCommunityStatsIndex;
       var cards;
+      var currentCardIndex;
 
       return {
         setCurrentUser: function(user){ currentUser = user; },
@@ -32,6 +33,12 @@ angular.module('Prode.services', ['jqm'])
         getCurrentCommunityStatsIndex: function() { return currentCommunityStatsIndex; },
 
         setCards: function(userCards) { cards = userCards; },
+
+        getCards: function() { return cards; },
+
+        setCurrentCardIndex: function(index) { currentCardIndex = index; },
+
+        getCurrentCardIndex: function() { return currentCardIndex; },
       };
   }])
   .factory('AuthenticationService', [
