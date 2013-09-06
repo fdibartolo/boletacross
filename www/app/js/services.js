@@ -5,6 +5,7 @@ angular.module('Prode.services', ['jqm'])
     '$rootScope', function($rootScope){
       var currentUser;
       var authToken;
+      var currentMenuItem;
       var communityStats;
       var currentCommunityStatsIndex;
       var cards;
@@ -23,6 +24,10 @@ angular.module('Prode.services', ['jqm'])
         setAuthToken: function(token) { authToken = token; },
 
         getAuthHeader: function() { return { headers: { 'Authorization': authToken }}; },
+
+        setCurrentMenuItem: function(menuItem) { currentMenuItem = menuItem; },
+
+        getCurrentMenuItem: function() { return currentMenuItem; },
 
         setCommunityStats: function(stats) { communityStats = stats; },
 

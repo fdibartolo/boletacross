@@ -35,7 +35,12 @@ angular.module('Prode.directives', ['jqm'])
               scope.nickname = null;
               scope.avatar_url = null;
               scope.stats = null;
+              scope.cards = null;
             }
+          });
+
+          scope.$watch(SessionService.getCurrentMenuItem, function(menuItem) {
+            scope.currentMenuItem = menuItem;
           });
         }
       }

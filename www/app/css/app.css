@@ -72,6 +72,10 @@ li:active {
   color: #FF7D00;
 }
 
+.active_menu_item {
+  color: #FF7D00;
+}
+
 hr {
   border: 0;
   height: 1px;

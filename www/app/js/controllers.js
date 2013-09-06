@@ -18,11 +18,13 @@ angular.module('Prode.controllers', ['jqm']).
       $rootScope.shouldLoadMenu = false;
 
       $scope.displayRankingFor = function(id) {
+        SessionService.setCurrentMenuItem('community_' + id);
         SessionService.setCurrentCommunityStatsIndex(id);
         $location.path('/community');
       }
 
       $scope.displayCardFor = function(id) {
+        SessionService.setCurrentMenuItem('card_' + id);
         SessionService.setCurrentCardIndex(id);
         $location.path('/card');
       }
@@ -45,12 +47,9 @@ angular.module('Prode.controllers', ['jqm']).
   .controller('CardsController', [
     '$scope', 'SessionService', function($scope, SessionService) {
 
-      console.log('get card controller');
       $scope.$watch(SessionService.getCurrentCardIndex, function (index) {
-        console.log('get card: ' + index);
         if (index !== undefined) {
           $scope.card = SessionService.getCards()[index];
-          console.log($scope.card);
         }
       });
   }]);
