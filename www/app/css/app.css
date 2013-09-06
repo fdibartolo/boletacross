@@ -133,21 +133,23 @@ hr {
   margin: 1em 1.5em;
 }
 
-/***** Community *****/
+/***** Content Pages *****/
 
-#ranking {
+.page_title {
   text-align: center;
   background: rgba(128, 128, 128, .5);
   margin-top: -0.9em;
 }
 
-#ranking p {
+.page_title p {
   margin-bottom: 0.2em;
 }
 
-#ranking span {
+.page_title span {
   font-size: 0.8em;
 }
+
+/***** Community *****/
 
 #ranking_table {
   font-size: 0.9em;
@@ -171,4 +173,17 @@ hr {
 .my_ranking_row {
   background: rgba(128, 128, 128, .5);
   font-weight: bold;
+}
+
+/***** Cards *****/
+
+#matches_table {
+  font-size: 0.7em;
+  width: 100%;
+  text-align: center;
+  padding: 0.5em;
+}
+
+#matches_table td {
+  padding: 0.4em 0;
 }

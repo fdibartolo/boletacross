@@ -1,4 +1,15 @@
 <div jqm-page>
-  Hola Tarjeta!
-  <p>{{card.week_name}}</p>
+  <div class="page_title">
+    <p>{{card.tournament_name}}</p>
+    <span>{{card.week_name}}</span>
+  </div>
+  <table id="matches_table">
+    <tr ng-repeat="match in card.matches">
+      <td width="35%">{{match.home_team}}</td>
+      <td width="7%">{{match.home_user_score}}</td>
+      <td width="16%">{{match.home_real_score}}-{{match.guest_real_score}}</td>
+      <td width="7%">{{match.guest_user_score}}</td>
+      <td width="35%">{{match.guest_team}}</td>
+    </tr>
+  </table>
 </div>
