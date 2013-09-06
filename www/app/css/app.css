@@ -115,6 +115,11 @@ hr {
 
 /***** Login *****/
 
+#login_banner {
+  text-align: center;
+  padding: 0.4em 0.9em;
+}
+
 #login_form {
   padding-top:.5em;
   margin: 1em 3em;

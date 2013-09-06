@@ -14,8 +14,9 @@
     <div jqm-panel-container="panelMenuState.openPanel" style="height:100%;overflow:hidden">
       <div jqm-header jqm-theme="b">
         <table width="100%">
-          <td width="4%"><div menu-icon></div></td>
-          <td width="92%" id="banner">Comunidad Prode</td>
+          <td width="4%" ng-show="shouldLoadMenu"><div menu-icon></div></td>
+          <td width="92%" ng-show="shouldLoadMenu" id="banner">Comunidad Prode</td>
+          <td width="100%" ng-show="! shouldLoadMenu" id="login_banner">Comunidad Prode</td>
         </table>
         <div id="header" ng-show="shouldLoadMenu"></div>
       </div>
