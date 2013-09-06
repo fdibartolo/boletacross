@@ -27,7 +27,7 @@ angular.module('Prode.directives', ['jqm'])
                 SessionService.setCommunityStats(stats);
                 CardsService.getCards().then(function(cards){
                   scope.cards = CardsService.buildCardMenuItems(cards);
-                  // SessionService.setCards(cards);
+                  SessionService.setCards(cards);
                 });
               });
             } else {

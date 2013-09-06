@@ -7,6 +7,7 @@ angular.module('Prode.services', ['jqm'])
       var authToken;
       var communityStats;
       var currentCommunityStatsIndex;
+      var cards;
 
       return {
         setCurrentUser: function(user){ currentUser = user; },
@@ -22,10 +23,6 @@ angular.module('Prode.services', ['jqm'])
 
         getAuthHeader: function() { return { headers: { 'Authorization': authToken }}; },
 
-        // isUserLoggedIn: function(){ return
-        //   ((currentUser !== undefined) && (currentUser !== null));
-        // },
-
         setCommunityStats: function(stats) { communityStats = stats; },
 
         getCommunityStats: function() { return communityStats; },
@@ -33,6 +30,8 @@ angular.module('Prode.services', ['jqm'])
         setCurrentCommunityStatsIndex: function(index) { currentCommunityStatsIndex = index; },
 
         getCurrentCommunityStatsIndex: function() { return currentCommunityStatsIndex; },
+
+        setCards: function(userCards) { cards = userCards; },
       };
   }])
   .factory('AuthenticationService', [
