@@ -182,8 +182,21 @@ hr {
   width: 100%;
   text-align: center;
   padding: 0.5em;
+  margin-top: 0.1em;
 }
 
 #matches_table td {
-  padding: 0.4em 0;
+  padding: 0.15em 0;
+}
+
+#matches_table div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+  border-radius: 0.2em;
+}
+
+#matches_table input {
+  font-size: 0.9em;
+  text-align: center;
+  padding: 0.1em 0;;
 }
