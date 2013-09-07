@@ -99,12 +99,12 @@ hr {
 .menu_title {
   padding: 0.4em 1em;
   margin: -0.5em -1.2em !important;
-  background-image: -webkit-gradient(linear, left top, left bottom, from( #FF7D00 /*{b-bup-background-start}*/), to( #833F00 /*{b-bup-background-end}*/)); /* Saf4+, Chrome */
-  background-image: -webkit-linear-gradient( #FF7D00 /*{b-bup-background-start}*/, #833F00 /*{b-bup-background-end}*/); /* Chrome 10+, Saf5.1+ */
-  background-image:    -moz-linear-gradient( #FF7D00 /*{b-bup-background-start}*/, #833F00 /*{b-bup-background-end}*/); /* FF3.6 */
-  background-image:     -ms-linear-gradient( #FF7D00 /*{b-bup-background-start}*/, #833F00 /*{b-bup-background-end}*/); /* IE10 */
-  background-image:      -o-linear-gradient( #FF7D00 /*{b-bup-background-start}*/, #833F00 /*{b-bup-background-end}*/); /* Opera 11.10+ */
-  background-image:         linear-gradient( #FF7D00 /*{b-bup-background-start}*/, #833F00 /*{b-bup-background-end}*/);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#FF7D00), to(#833F00)); /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient(#FF7D00, #833F00); /* Chrome 10+, Saf5.1+ */
+  background-image:    -moz-linear-gradient(#FF7D00, #833F00); /* FF3.6 */
+  background-image:     -ms-linear-gradient(#FF7D00, #833F00); /* IE10 */
+  background-image:      -o-linear-gradient(#FF7D00, #833F00); /* Opera 11.10+ */
+  background-image:         linear-gradient(#FF7D00, #833F00);
 }
 
 #logout_link {
