@@ -5,7 +5,7 @@
   </div>
   <table id="ranking_table">
     <p id="ranking_points_header">Puntos</p>
-    <tr ng-repeat="r in currentStats.ranking" ng-class="{true:'my_ranking_row', false:''}[currentUserNickName==r.nick_name]">
+    <tr ng-repeat="r in currentStats.ranking" ng-class="{my_ranking_row: currentUserNickName==r.nick_name}">
       <td width="15%">{{r.position}}</td>
       <td width="70%">{{r.nick_name}}</td>
       <td width="15%">{{r.points}}</td>
