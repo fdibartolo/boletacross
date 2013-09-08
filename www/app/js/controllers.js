@@ -57,10 +57,22 @@ angular.module('Prode.controllers', ['jqm']).
       });
 
       $scope.isHomeScoreGuessed = function(match) {
-        return match.home_user_score === match.home_real_score
+        return $scope.isPublished && (match.home_real_score !== null) && 
+          (match.home_user_score === match.home_real_score)
+      }
+
+      $scope.isHomeScoreMissed = function(match) {
+        return $scope.isPublished && (match.home_real_score !== null) && 
+          (match.home_user_score !== match.home_real_score)
       }
 
       $scope.isGuestScoreGuessed = function(match) {
-        return match.guest_user_score === match.guest_real_score
+        return $scope.isPublished && (match.guest_real_score !== null) && 
+          (match.guest_user_score === match.guest_real_score)
+      }
+
+      $scope.isGuestScoreMissed = function(match) {
+        return $scope.isPublished && (match.guest_real_score !== null) && 
+          (match.guest_user_score !== match.guest_real_score)
       }
     }]);

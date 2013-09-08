@@ -7,13 +7,13 @@
     <tr ng-repeat="match in card.matches">
       <td width="37%">{{match.home_team}}</td>
       <td width="7%">
-        <div ng-class="{score_guessed: isPublished && isHomeScoreGuessed(match), score_missed: isPublished && (! isHomeScoreGuessed(match))}">
+        <div ng-class="{score_guessed: isHomeScoreGuessed(match), score_missed: isHomeScoreMissed(match)}">
           <div jqm-textinput ng-model="match.home_user_score"></div>
         </div>
       </td>
       <td width="12%"><div>{{match.home_real_score}} - {{match.guest_real_score}}</div></td>
       <td width="7%">
-        <div ng-class="{score_guessed: isPublished && isGuestScoreGuessed(match), score_missed: isPublished && (! isGuestScoreGuessed(match))}">
+        <div ng-class="{score_guessed: isGuestScoreGuessed(match), score_missed: isGuestScoreMissed(match)}">
           <div jqm-textinput ng-model="match.guest_user_score"></div>
         </div>
       </td>
