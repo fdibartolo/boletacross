@@ -200,3 +200,25 @@ hr {
   text-align: center;
   padding: 0.1em 0;;
 }
+
+.card_footer {
+  text-align: center;
+}
+
+.score_guessed div {
+  border: 1px solid green !important;
+}
+
+.score_guessed input {
+  color: white !important;
+  background: rgba(0, 125, 0, .6) !important;
+}
+
+.score_missed div {
+  border: 1px solid red !important;
+}
+
+.score_missed input {
+  color: white !important;
+  background: rgba(125, 0, 0, .6) !important;
+}

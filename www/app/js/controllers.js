@@ -49,7 +49,18 @@ angular.module('Prode.controllers', ['jqm']).
 
       $scope.$watch(SessionService.getCurrentCardIndex, function (index) {
         if (index !== undefined) {
-          $scope.card = SessionService.getCards()[index];
+          var card = SessionService.getCards()[index];
+          $scope.card = card
+          $scope.isSubmitable = Date.parse(card.due_date) > Date.now();
+          $scope.isPublished = card.publish_date !== null
         }
       });
-  }]);
+
+      $scope.isHomeScoreGuessed = function(match) {
+        return match.home_user_score === match.home_real_score
+      }
+
+      $scope.isGuestScoreGuessed = function(match) {
+        return match.guest_user_score === match.guest_real_score
+      }
+    }]);
