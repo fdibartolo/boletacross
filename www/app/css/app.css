@@ -230,3 +230,9 @@ hr {
   color: white !important;
   background: rgba(0, 150, 0, .5) !important;
 }
+
+.result_missed {
+  border: 2px solid rgb(225, 0, 0) !important;
+  color: white !important;
+  background: rgba(255, 0, 0, .5) !important;
+}

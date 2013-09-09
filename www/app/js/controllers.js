@@ -75,4 +75,23 @@ angular.module('Prode.controllers', ['jqm']).
         return $scope.isPublished && (match.guest_real_score !== null) && 
           (match.guest_user_score !== match.guest_real_score)
       }
+
+      $scope.isResultGuessed = function(match) {
+        return $scope.isPublished && hasResults(match) && resultMatch(match)
+      }
+
+      $scope.isResultMissed = function(match) {
+        return $scope.isPublished && hasResults(match) && (! resultMatch(match))
+      }
+
+      var hasResults = function(match) {
+        return (match.home_real_score !== null) && (match.home_user_score !== null) && 
+          (match.guest_real_score !== null) && (match.guest_user_score !== null)
+      }
+
+      var resultMatch = function(match) {
+        return ((match.home_user_score > match.guest_user_score && match.home_real_score > match.guest_real_score) ||
+          (match.home_user_score === match.guest_user_score && match.home_real_score === match.guest_real_score) ||
+          (match.home_user_score < match.guest_user_score && match.home_real_score < match.guest_real_score))
+      }
     }]);

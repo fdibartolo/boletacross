@@ -11,8 +11,10 @@
           <div jqm-textinput ng-model="match.home_user_score"></div>
         </div>
       </td>
-      <td width="12%"><div><div>
-        {{match.home_real_score}} - {{match.guest_real_score}}</div></div>
+      <td width="12%">
+        <div ng-class="{result_guessed: isResultGuessed(match), result_missed: isResultMissed(match)}">
+          <div>{{match.home_real_score}} - {{match.guest_real_score}}</div>
+        </div>
       </td>
       <td width="7%">
         <div ng-class="{score_guessed: isGuestScoreGuessed(match), score_missed: isGuestScoreMissed(match)}">
@@ -22,9 +24,14 @@
       <td width="37%">{{match.guest_team}}</td>
     </tr>
   </table>
-  <div class="card_footer" ng-show="isPublished">Fecha cerrada. Obtuviste {{card.points}} puntos!</div>
-  <div ng-show="isSubmitable">soy un boton</div>
-  <div class="card_footer" ng-show="(! isSubmitable) && (! isPublished)">Fecha cerrada. Pronto sabrás tus puntos!</div>
-</div>
 
-<!-- class="result_guessed" -->
+  <div ng-show="isSubmitable">soy un boton</div>
+
+  <div class="card_footer" ng-show="isPublished">
+    Fecha cerrada. Obtuviste {{card.points}} puntos!
+  </div>
+
+  <div class="card_footer" ng-show="(! isSubmitable) && (! isPublished)">
+    Fecha cerrada. Pronto sabrás tus puntos!
+  </div>
+</div>
