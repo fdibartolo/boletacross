@@ -132,6 +132,22 @@ angular.module('Prode.services', ['jqm'])
       }
 
       var submitCard = function(card) {
+        var submitableCard = buildSubmitableCard(card);
+        
+        var deferred = $q.defer();
+        $http.post(cardsUrl, submitableCard, SessionService.getAuthHeader()).
+          success(function(data, status) {
+            deferred.resolve(data);
+          }).
+          error(function(data, status) {
+            deferred.reject();
+            alert("Error - Cannot load cards: " + data);
+          });
+        
+        return deferred.promise;
+      }
+
+      var buildSubmitableCard = function(card) {
         var submitableCard = {};
         submitableCard['card'] = {};
         submitableCard['card']['week_id'] = card.week_id;
@@ -145,17 +161,7 @@ angular.module('Prode.services', ['jqm'])
           submitableCard['card']['matches'][m] = match;
         }
 
-        var deferred = $q.defer();
-        $http.post(cardsUrl, submitableCard, SessionService.getAuthHeader()).
-          success(function(data, status) {
-            deferred.resolve(data);
-          }).
-          error(function(data, status) {
-            deferred.reject();
-            alert("Error - Cannot load cards: " + data);
-          });
-        
-        return deferred.promise;
+        return submitableCard;
       }
 
       return {
