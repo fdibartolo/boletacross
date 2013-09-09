@@ -129,6 +129,10 @@ hr {
   margin: 1em 3em;
 }
 
+#login_form input {
+  padding-left:.6em;
+}
+
 #login_button {
   margin: 1em 1.5em;
 }
