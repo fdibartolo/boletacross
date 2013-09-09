@@ -45,7 +45,7 @@ angular.module('Prode.controllers', ['jqm']).
       });
   }])
   .controller('CardsController', [
-    '$scope', 'SessionService', function($scope, SessionService) {
+    '$scope', 'SessionService', 'CardsService', function($scope, SessionService, CardsService) {
 
       $scope.$watch(SessionService.getCurrentCardIndex, function (index) {
         if (index !== undefined) {
@@ -57,7 +57,7 @@ angular.module('Prode.controllers', ['jqm']).
       });
 
       $scope.submitCard = function() {
-        console.log('will submit card');
+        CardsService.submitCard($scope.card);
       }
 
       $scope.isHomeScoreGuessed = function(match) {

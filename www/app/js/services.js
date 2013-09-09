@@ -19,6 +19,7 @@ angular.module('Prode.services', ['jqm'])
         clearSession: function(){ 
           currentUser = null;
           $rootScope.shouldLoadMenu = false;
+          currentMenuItem = null;
         },
 
         setAuthToken: function(token) { authToken = token; },
@@ -130,8 +131,36 @@ angular.module('Prode.services', ['jqm'])
         return result;
       }
 
+      var submitCard = function(card) {
+        var submitableCard = {};
+        submitableCard['card'] = {};
+        submitableCard['card']['week_id'] = card.week_id;
+        submitableCard['card']['matches'] = [];
+
+        for (var m in card.matches) {
+          var match = {};
+          match.match_id = card.matches[m].match_id;
+          match.home_score = card.matches[m].home_user_score;
+          match.guest_score = card.matches[m].guest_user_score;
+          submitableCard['card']['matches'][m] = match;
+        }
+
+        var deferred = $q.defer();
+        $http.post(cardsUrl, submitableCard, SessionService.getAuthHeader()).
+          success(function(data, status) {
+            deferred.resolve(data);
+          }).
+          error(function(data, status) {
+            deferred.reject();
+            alert("Error - Cannot load cards: " + data);
+          });
+        
+        return deferred.promise;
+      }
+
       return {
         getCards: getCards,
-        buildCardMenuItems: buildCardMenuItems
+        buildCardMenuItems: buildCardMenuItems,
+        submitCard: submitCard
       };
   }]);
