@@ -25,7 +25,9 @@
     </tr>
   </table>
 
-  <div ng-show="isSubmitable">soy un boton</div>
+  <div ng-show="isSubmitable">
+    <div id="submit_card_button" jqm-button type="submit" ng-click="submitCard()">Guardar Tarjeta</div>
+  </div>
 
   <div class="card_footer" ng-show="isPublished">
     Fecha cerrada. Obtuviste {{card.points}} puntos!

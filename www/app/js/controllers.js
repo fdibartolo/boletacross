@@ -56,6 +56,10 @@ angular.module('Prode.controllers', ['jqm']).
         }
       });
 
+      $scope.submitCard = function() {
+        console.log('will submit card');
+      }
+
       $scope.isHomeScoreGuessed = function(match) {
         return $scope.isPublished && (match.home_real_score !== null) && 
           (match.home_user_score === match.home_real_score)

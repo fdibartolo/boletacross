@@ -205,6 +205,14 @@ hr {
   padding: 0.1em 0;;
 }
 
+#submit_card_button {
+  margin: 0.5em 1.5em;
+}
+
+#submit_card_button span {
+  font-size: 0.95em;
+}
+
 .card_footer {
   text-align: center;
 }
