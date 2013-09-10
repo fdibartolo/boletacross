@@ -249,13 +249,16 @@ hr {
   background: rgba(255, 0, 0, .5) !important;
 }
 
+/***** Loading Spinner *****/
+
 .ui-loading .loading-background {
   background: rgba(90,90,90,.5);
   position: fixed;
   top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
-  height: 480px;
-  width: 320px;
+  width: auto;
   z-index: 99999;
   margin: 0;
 }
