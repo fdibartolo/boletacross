@@ -250,8 +250,12 @@ hr {
 }
 
 /***** Loading Spinner *****/
+.ui-loader-background { 
+  display: none;
+}
 
-.ui-loading .loading-background {
+.ui-loading .ui-loader-background {
+  display: block;
   background: rgba(90,90,90,.5);
   position: fixed;
   top: 0;
