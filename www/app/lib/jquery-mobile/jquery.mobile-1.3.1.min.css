@@ -679,9 +679,9 @@ div.ui-mobile-viewport { overflow-x: hidden; }
 .ui-loading .ui-loader { display: block; background: none repeat scroll 0 0 rgba(94,94,94,0.95); }
 .ui-loader { display: none; z-index: 9999999; position: fixed; top: 50%; left: 50%; border: 0px solid #FF7D00; }
 .ui-loader-default { background: none; filter: Alpha(Opacity=18); opacity: .18; width: 46px; height: 46px; margin-left: -23px; margin-top: -23px; }
-.ui-loader-verbose { width: 200px; filter: Alpha(Opacity=88); opacity: 1; box-shadow: 0 0px 0px -1px #fff; height: auto; margin-left: -110px; margin-top: -43px; padding: 10px; }
+.ui-loader-verbose { width: 200px; filter: Alpha(Opacity=100); opacity: 1; box-shadow: 0 0px 0px -1px #fff; height: auto; margin-left: -110px; margin-top: -43px; padding: 10px; }
 .ui-loader-default h1 { font-size: 0; width: 0; height: 0; overflow: hidden; }
-.ui-loader-verbose h1 { font-size: 0.9em; margin: 0; text-align: center; color: white; font-family: Verdana,Geneva,sans-serif; }
+.ui-loader-verbose h1 { font-size: 0.8em; font-weight: normal; margin: 0; text-align: center; color: white; font-family: Verdana,Geneva,sans-serif; }
 .ui-loader .ui-icon { display: block; margin: 0; width: 30px; height: 30px; padding: 1px; -webkit-border-radius: 36px; border-radius: 36px; }
 .ui-loader-verbose .ui-icon { margin: 0 auto 10px; filter: Alpha(Opacity=100); opacity: 1; }
 .ui-loader-textonly { padding: 15px; margin-left: -115px; }

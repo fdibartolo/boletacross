@@ -2754,10 +2754,10 @@ jqmModule.factory('$loadDialog', ['$rootElement', '$rootScope', function ($rootE
     var showCalls = [];
     var loadingClass = 'ui-loading';
 
-    var defaultTemplate = angular.element("<div class='ui-loader ui-corner-all ui-body-d'>" +
+    var defaultTemplate = angular.element("<div class='ui-loader ui-corner-all'>" +
         "   <span class='ui-icon ui-icon-loading'></span>" +
         "   <h1></h1>" +
-        "</div>");
+        "</div><div class='loading-background'></div>");
 
     $rootElement.append(defaultTemplate);
     defaultTemplate.bind("click", onClick);
