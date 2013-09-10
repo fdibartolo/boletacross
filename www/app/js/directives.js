@@ -25,6 +25,8 @@ angular.module('Prode.directives', ['jqm'])
               CommunityService.getCommunityStats().then(function(stats) {
                 scope.stats = stats;
                 SessionService.setCommunityStats(stats);
+                if (stats.length > 0) SessionService.setCurrentCommunityStatsIndex(0)
+                  
                 CardsService.getCards().then(function(cards){
                   scope.cards = CardsService.buildCardMenuItems(cards);
                   SessionService.setCards(cards);
