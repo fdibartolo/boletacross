@@ -48,21 +48,25 @@ angular.module('Prode.services', ['jqm'])
       };
   }])
   .factory('AuthenticationService', [
-    '$q', '$http', 'usersUrl', 'SessionService', function($q, $http, usersUrl, SessionService) {
+    '$q', '$http', '$loadDialog', 'usersUrl', 'SessionService', function($q, $http, $loadDialog, usersUrl, SessionService) {
       
       var login = function(credentials) {
         var deferred = $q.defer();
         var auth = "Basic " + btoa(credentials.username + ":" + credentials.password);
         var custom_headers = { headers: { 'Authorization': auth }};
 
+        $loadDialog.show('Ingresando...');
+
         $http.get(usersUrl, custom_headers).
           success(function(data, status) {
             SessionService.setAuthToken(auth);
             SessionService.setCurrentUser(data);
             deferred.resolve();
+            $loadDialog.hide();
           }).
           error(function(data, status) {
             deferred.reject();
+            $loadDialog.hide();
             alert("Error - Cannot authenticate user: " + data);
           });
 
@@ -79,17 +83,21 @@ angular.module('Prode.services', ['jqm'])
       };
   }])
   .factory('CommunityService', [
-    '$q', '$http', 'communityUrl', 'SessionService', function($q, $http, communityUrl, SessionService) {
+    '$q', '$http', '$loadDialog', 'communityUrl', 'SessionService', function($q, $http, $loadDialog, communityUrl, SessionService) {
 
       var getCommunityStats = function() {
         var deferred = $q.defer();
 
+        $loadDialog.show('Cargando Rankings...');
+
         $http.get(communityUrl, SessionService.getAuthHeader()).
           success(function(data, status) {
             deferred.resolve(data);
+            $loadDialog.hide();
           }).
           error(function(data, status) {
             deferred.reject();
+            $loadDialog.hide();
             alert("Error - Cannot load community stats: " + data);
           });
         
@@ -101,17 +109,21 @@ angular.module('Prode.services', ['jqm'])
       };
   }])
   .factory('CardsService', [
-    '$q', '$http', 'cardsUrl', 'SessionService', function($q, $http, cardsUrl, SessionService) {
+    '$q', '$http', '$loadDialog', 'cardsUrl', 'SessionService', function($q, $http, $loadDialog, cardsUrl, SessionService) {
 
       var getCards = function() {
         var deferred = $q.defer();
 
+        $loadDialog.show('Cargando Tarjetas...');
+
         $http.get(cardsUrl, SessionService.getAuthHeader()).
           success(function(data, status) {
             deferred.resolve(data);
+            $loadDialog.hide();
           }).
           error(function(data, status) {
             deferred.reject();
+            $loadDialog.hide();
             alert("Error - Cannot load cards: " + data);
           });
         
@@ -134,13 +146,17 @@ angular.module('Prode.services', ['jqm'])
       var submitCard = function(card) {
         var submitableCard = buildSubmitableCard(card);
         
+        $loadDialog.show('Guardando Tarjeta...');
+
         var deferred = $q.defer();
         $http.post(cardsUrl, submitableCard, SessionService.getAuthHeader()).
           success(function(data, status) {
             deferred.resolve(data);
+            $loadDialog.hide();
           }).
           error(function(data, status) {
             deferred.reject();
+            $loadDialog.hide();
             alert("Error - Cannot load cards: " + data);
           });
         
