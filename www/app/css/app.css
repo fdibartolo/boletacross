@@ -63,9 +63,9 @@ li p {
   text-decoration: none;
   display: block;
   padding-left: 0.9em;
-  webkit-transition: color 0.3s ease-in-out;
-  -o-transition: color 0.3s ease-in-out;
-  transition: color 0.3s ease-in-out;
+  webkit-transition: color; /*0.3s ease-in-out;*/
+  -o-transition: color; /*0.3s ease-in-out;*/
+  transition: color; /*0.3s ease-in-out;*/
 }
 
 li:active {
@@ -108,9 +108,9 @@ hr {
 }
 
 #logout_link {
-  webkit-transition: color 0.3s ease-in-out;
-  -o-transition: color 0.3s ease-in-out;
-  transition: color 0.3s ease-in-out;  
+  webkit-transition: color; /* 0.3s ease-in-out;*/
+  -o-transition: color; /*0.3s ease-in-out;*/
+  transition: color; /*0.3s ease-in-out;*/
 }
 
 #logout_link:active {
@@ -196,7 +196,7 @@ hr {
 #matches_table div {
   margin-top: 0.1em;
   margin-bottom: 0.1em;
-  border-radius: 0.2em;
+  border-radius: 0.3em;
 }
 
 #matches_table input {
@@ -218,33 +218,35 @@ hr {
 }
 
 .score_guessed div {
-  border: 2px solid rgb(0, 200, 0) !important;
+  border: 0.1em solid rgb(0, 200, 0) !important;
   background: transparent !important;
 }
 
 .score_guessed input {
   color: white !important;
   background: rgba(0, 150, 0, .5) !important;
+  border-radius: 0.2em !important;
 }
 
 .score_missed div {
-  border: 2px solid rgb(225, 0, 0) !important;
+  border: 0.1em solid rgb(225, 0, 0) !important;
   background: transparent !important;
 }
 
 .score_missed input {
   color: white !important;
   background: rgba(255, 0, 0, .5) !important;
+  border-radius: 0.2em !important;
 }
 
 .result_guessed {
-  border: 2px solid rgb(0, 200, 0) !important;
+  border: 0.1em solid rgb(0, 200, 0) !important;
   color: white !important;
   background: rgba(0, 150, 0, .5) !important;
 }
 
 .result_missed {
-  border: 2px solid rgb(225, 0, 0) !important;
+  border: 0.1em solid rgb(225, 0, 0) !important;
   color: white !important;
   background: rgba(255, 0, 0, .5) !important;
 }
