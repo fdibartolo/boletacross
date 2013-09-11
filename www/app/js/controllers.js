@@ -62,41 +62,56 @@ angular.module('Prode.controllers', ['jqm']).
       }
 
       $scope.isHomeScoreGuessed = function(match) {
-        return $scope.isPublished && (match.home_real_score !== null) && 
+        return $scope.isPublished && hasHomeRealResult(match) && 
           (match.home_user_score === match.home_real_score)
       }
 
       $scope.isHomeScoreMissed = function(match) {
-        return $scope.isPublished && (match.home_real_score !== null) && 
+        return $scope.isPublished && hasHomeRealResult(match) && 
           (match.home_user_score !== match.home_real_score)
       }
 
       $scope.isGuestScoreGuessed = function(match) {
-        return $scope.isPublished && (match.guest_real_score !== null) && 
+        return $scope.isPublished && hasGuestRealResult(match) && 
           (match.guest_user_score === match.guest_real_score)
       }
 
       $scope.isGuestScoreMissed = function(match) {
-        return $scope.isPublished && (match.guest_real_score !== null) && 
+        return $scope.isPublished && hasGuestRealResult(match) &&
           (match.guest_user_score !== match.guest_real_score)
       }
 
       $scope.isResultGuessed = function(match) {
-        return $scope.isPublished && hasResults(match) && resultMatch(match)
+        return $scope.isPublished && hasRealResults(match) && userResultDoesMatch(match)
       }
 
       $scope.isResultMissed = function(match) {
-        return $scope.isPublished && hasResults(match) && (! resultMatch(match))
+        return $scope.isPublished && hasRealResults(match) && (! userResultDoesMatch(match))
       }
 
-      var hasResults = function(match) {
-        return (match.home_real_score !== null) && (match.home_user_score !== null) && 
-          (match.guest_real_score !== null) && (match.guest_user_score !== null)
+      var hasRealResults = function(match) {
+        return hasHomeRealResult(match) && hasGuestRealResult(match)
       }
 
-      var resultMatch = function(match) {
-        return ((match.home_user_score > match.guest_user_score && match.home_real_score > match.guest_real_score) ||
-          (match.home_user_score === match.guest_user_score && match.home_real_score === match.guest_real_score) ||
-          (match.home_user_score < match.guest_user_score && match.home_real_score < match.guest_real_score))
+      var hasHomeRealResult = function(match) {
+        return match.home_real_score !== null && match.home_real_score !== undefined
+      }
+
+      var hasGuestRealResult = function(match) {
+        return match.guest_real_score !== null && match.guest_real_score !== undefined
+      }
+
+      var userResultDoesMatch = function(match) {
+        if (isMissingAnyUserResults(match))
+          return false
+        else
+          return ((match.home_user_score > match.guest_user_score && match.home_real_score > match.guest_real_score) ||
+            (match.home_user_score === match.guest_user_score && match.home_real_score === match.guest_real_score) ||
+            (match.home_user_score < match.guest_user_score && match.home_real_score < match.guest_real_score))
+      }
+
+      var isMissingAnyUserResults = function(match){
+        return (match.home_user_score === null || match.home_user_score === undefined ||
+          match.guest_user_score === null || match.guest_user_score === undefined)
       }
     }]);
