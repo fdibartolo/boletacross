@@ -51,6 +51,7 @@ angular.module('Prode.controllers', ['jqm']).
         if (index !== undefined) {
           var card = SessionService.getCards()[index];
           $scope.card = card
+          if (card.points === undefined) card.points = 0 //hack :(
           $scope.isSubmitable = Date.parse(card.due_date) > Date.now();
           $scope.isPublished = card.publish_date !== null
         }
