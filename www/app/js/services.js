@@ -55,7 +55,7 @@ angular.module('Prode.services', ['jqm'])
         var auth = "Basic " + btoa(credentials.username + ":" + credentials.password);
         var custom_headers = { headers: { 'Authorization': auth }};
 
-        $loadDialog.show('Ingresando...');
+        $loadDialog.showModal('Ingresando...');
 
         $http.get(usersUrl, custom_headers).
           success(function(data, status) {
@@ -88,7 +88,7 @@ angular.module('Prode.services', ['jqm'])
       var getCommunityStats = function() {
         var deferred = $q.defer();
 
-        $loadDialog.show('Cargando Rankings...');
+        $loadDialog.showModal('Cargando Rankings...');
 
         $http.get(communityUrl, SessionService.getAuthHeader()).
           success(function(data, status) {
@@ -114,7 +114,7 @@ angular.module('Prode.services', ['jqm'])
       var getCards = function() {
         var deferred = $q.defer();
 
-        $loadDialog.show('Cargando Tarjetas...');
+        $loadDialog.showModal('Cargando Tarjetas...');
 
         $http.get(cardsUrl, SessionService.getAuthHeader()).
           success(function(data, status) {
@@ -146,7 +146,7 @@ angular.module('Prode.services', ['jqm'])
       var submitCard = function(card) {
         var submitableCard = buildSubmitableCard(card);
         
-        $loadDialog.show('Guardando Tarjeta...');
+        $loadDialog.showModal('Guardando Tarjeta...');
 
         var deferred = $q.defer();
         $http.post(cardsUrl, submitableCard, SessionService.getAuthHeader()).

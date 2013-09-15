@@ -1,4 +1,4 @@
-/*! angular-jqm - v0.0.1-SNAPSHOT - 2013-08-15
+/*! angular-jqm - v0.0.1-SNAPSHOT - 2013-09-13
  * https://github.com/angular-widgets/angular-jqm
  * Copyright (c) 2013 OPITZ CONSULTING GmbH; Licensed MIT */
 (function(window, angular) {
@@ -10,7 +10,7 @@
  *
  * 'jqm' is the one module that contains all jqm code.
  */
-var jqmModule = angular.module("jqm", ["jqm-templates", "ngMobile", "ajoslin.scrolly", "ui.bootstrap.position"]);
+var jqmModule = angular.module("jqm", ["ngMobile", "jqm-templates", "ajoslin.scrolly", "ui.bootstrap.position"]);
 
 jqmModule.config(['$provide', function ($provide) {
     $provide.decorator('$animator', ['$delegate', function ($animator) {
@@ -518,6 +518,7 @@ jqmModule.directive('jqmButton', ['jqmClassDirective', 'jqmOnceClassDirective', 
             }
 
             return function(scope, elm, attr, controlGroup) {
+                elm.addClass('ui-btn-up-' + scope.$theme);
 
                 scope.$$scopeAs = 'jqmBtn';
                 scope.isMini = isMini;
@@ -850,6 +851,32 @@ jqmModule.directive('jqmControlgroup', function() {
 });
 /**
  * @ngdoc directive
+ * @name jqm.directive:jqmFieldcontain
+ * @restrict A
+ *
+ * @description
+ * Used to wrap a label/form element pair.
+ *
+ * @example
+ <example module="jqm">
+ <file name="index.html">
+    <div jqm-fieldcontain>
+      <label for="name">Your Name:</label>
+      <div jqm-textinput ng-model="name" />
+    </div>
+ </file>
+ </example>
+ */
+jqmModule.directive('jqmFieldcontain', function() {
+    return {
+        restrict: 'A',
+        compile: function(elm, attr) {
+            elm[0].className += ' ui-field-contain ui-body ui-br';
+        }
+    };
+});
+/**
+ * @ngdoc directive
  * @name jqm.directive:jqmFlip
  * @restrict A
  *
@@ -1065,6 +1092,40 @@ function hxDirective() {
 }
 
 
+jqmModule.directive('jqmLiCount', [function() {
+    return {
+        restrict: 'A',
+        require: '^jqmLiLink',
+        link: function(scope, elm, attr, jqmLiLinkCtrl) {
+            jqmLiLinkCtrl.$scope.hasCount = true;
+            elm.addClass('ui-li-count ui-btn-corner-all ui-btn-up-' + scope.$theme);
+        }
+    };
+}]);
+
+
+/**
+ * @ngdoc directive
+ * @name jqm.directive:jqmLiEntry
+ * @restrict A
+ *
+ * @description
+ * Creates a jQuery mobile entry list item. This is just a plain entry, instead of a 
+ * {@link jqm.directive:jqmLiLink jqmLiLink}.
+ *
+ * Must be inside of a {@link jqm.direcitve:jqmListview jqmListview}.
+ */
+
+/**
+ * @ngdoc directive
+ * @name jqm.directive:jqmLiDivider
+ * @restrict A
+ *
+ * @description
+ * Creates a jQuery mobile list divider.
+ *
+ * Must be inside of a {@link jqm.direcitve:jqmListview jqmListview}
+ */
 jqmModule.directive({
     jqmLiEntry: jqmLiEntryDirective(false),
     jqmLiDivider: jqmLiEntryDirective(true)
@@ -1078,14 +1139,31 @@ function jqmLiEntryDirective(isDivider) {
             scope: {},
             templateUrl: 'templates/jqmLiEntry.html',
             link: function(scope) {
-                if (isDivider) {
-                    scope.divider = true;
-                }
+                scope.divider = isDivider;
             }
         };
     };
 }
 
+/**
+ * @ngdoc directive
+ * @name jqm.directive:jqmLiLink
+ * @restrict A
+ *
+ * @description
+ * Creates a jquery mobile list item link entry.
+ *
+ * Must be inside of a {@link jqm.directive:jqmListview jqmListview}
+ *
+ * - Add a `<img jqm-li-thumb>` inside for a thumbnail.
+ * - Add a `<span jqm-li-count>` inside for a count.
+ *
+ * @param {string=} jqmLiLInk The link, or href, that this listitem should go to when clicked.
+ * @param {string=} icon What icon to use for the link.  Default 'ui-icon-arrow-r'.
+ * @param {string=} iconpos Where to put the icon. Default 'right'.
+ * @param {string=} iconShadow Whether the icon should have a shadow or not. Default true.
+ *
+ */
 jqmModule.directive('jqmLiLink', [function() {
     var isdef = angular.isDefined;
     return {
@@ -1098,9 +1176,8 @@ jqmModule.directive('jqmLiLink', [function() {
             icon: '@',
             iconpos: '@',
             iconShadow: '@',
-            hasThumb: '@',
-            hasCount: '@',
-            link: '@jqmLiLink'
+            link: '@jqmLiLink',
+            //hasThumb and hasCount set by jqmLiCount and jqmLiThumb
         },
         compile: function(element, attr) {
             attr.icon = isdef(attr.icon) ? attr.icon : 'ui-icon-arrow-r';
@@ -1109,10 +1186,62 @@ jqmModule.directive('jqmLiLink', [function() {
         }
     };
     function JqmLiController($scope) {
+        this.$scope = $scope;
     }
 }]);
 
 
+jqmModule.directive('jqmLiThumb', [function() {
+    return {
+        restrict: 'A',
+        require: '^jqmLiLink',
+        link: function(scope, elm, attr, jqmLiLinkCtrl) {
+            jqmLiLinkCtrl.$scope.hasThumb = true;
+            elm.addClass('ui-li-thumb');
+        }
+    };
+}]);
+
+/**
+ * @ngdoc directive
+ * @name jqm.directive:jqmListview
+ * @restrict A
+ *
+ * @description 
+ * Creates a jQuery mobile listview.  Add jqmLiDivider, jqmLiEntry, and/or jqmLiLinks inside.
+ *
+ * @param {string=} inset Whether this listview should be inset or not. Default false.
+ * @param {string=} shadow Whether this listview should have a shadow or not (only applies if inset). Default true.
+ * @param {string=} shadow Whether this listview should have corners or not (only applies if inset). Default true.
+ *
+ * @example
+<example module="jqm">
+  <file name="index.html">
+    <div ng-init="list=[1,2,3,4,5,6]"></div>
+    <h3>Entries</h3>
+    <ul jqm-listview>
+      <li jqm-li-entry>Hello, entry!</li>
+      <li jqm-li-entry>Another entry!</li>
+      <li jqm-li-entry>More!! entry!</li>
+      <li jqm-li-divider jqm-theme="b">Divider</li>
+      <li jqm-li-entry>Hello, entry!</li>
+      <li jqm-li-entry>Another entry!</li>
+      <li jqm-li-entry>More!! entry!</li>
+    </ul>
+    <h3>Links</h3>
+    <ul jqm-listview>
+      <li ng-repeat="i in list" jqm-li-link="#/{{i}}">{{i}}</li>
+      <li jqm-li-divider jqm-theme="b">Here's a thumbnail with a count</li>
+      <li jqm-li-link icon="ui-icon-home">
+        <img jqm-li-thumb src="http://placekitten.com/80/80">
+        <h2 class="ui-li-heading">Kitten!</h2>
+        <p class="ui-li-desc">Subtext here. Yeah.</p>
+        <span jqm-li-count>44</span>
+      </li>
+    </ul>
+  </file>
+</example>
+ */
 jqmModule.directive('jqmListview', [function() {
     var isdef = angular.isDefined;
     return {
@@ -2237,42 +2366,6 @@ jqmModule.directive('jqmView', ['$templateCache', '$route', '$anchorScroll', '$c
         }
     }]);
 
-// set the initial `ui-btn-up-<theme>` class for buttons
-jqmModule.directive('ngClick', [function () {
-    return function (scope, element, attr) {
-        if (element.hasClass('ui-btn') || element.hasClass('jqm-active-toggle')) {
-            element.addClass("ui-btn-up-" + scope.$theme);
-            element.data('$$jqmActiveToggle', true);
-        }
-    };
-}]);
-
-// set the `ui-btn-down-<theme>` class on buttons on mouse down / touchstart
-jqmModule.run([function () {
-    var jqLiteProto = angular.element.prototype;
-    // Note that this may be called multiple times during tests!
-    jqLiteProto._addClass = jqLiteProto._addClass || jqLiteProto.addClass;
-    jqLiteProto._removeClass = jqLiteProto._removeClass || jqLiteProto.removeClass;
-    jqLiteProto.addClass = function (className) {
-        var theme;
-        if (className === 'ng-click-active' && this.data('$$jqmActiveToggle')) {
-            theme = this.scope().$theme;
-            this._removeClass("ui-btn-up-" + theme);
-            className += " ui-btn-down-" + theme;
-        }
-        return this._addClass(className);
-    };
-    jqLiteProto.removeClass = function (className) {
-        var theme;
-        if (className === 'ng-click-active' && this.data('$$jqmActiveToggle')) {
-            theme = this.scope().$theme;
-            this._addClass("ui-btn-up-" + theme);
-            className += " ui-btn-down-" + theme;
-        }
-        return this._removeClass(className);
-    };
-}]);
-
 /**
  * @ngdoc function
  * @name jqm.$anchorScroll
@@ -2531,6 +2624,78 @@ jqmModule.factory('$history', ['$window', '$timeout', function $historyFactory($
     }
 }]);
 
+jqmModule.run(['jqmButtonToggler', '$rootElement', function(jqmButtonToggler, $rootElement) {
+    jqmButtonToggler($rootElement);
+}]);
+jqmModule.factory('jqmButtonToggler', function() {
+
+    return function(element) {
+        var self = {};
+
+        //Exposed for testing
+        self.$mousedown = function(e) {
+            var unbindEvents = e.type === 'mousedown' ?
+                'mouseup mousemove' :
+                'touchmove touchend touchcancel';
+            var target = angular.element(e.target);
+            var btnElement = parentWithClass(target, 'ui-btn-up-' + target.scope().$theme);
+            if (btnElement) {
+                toggleBtnDown(btnElement, true);
+                target.bind(unbindEvents, onBtnUp);
+            }
+            function onBtnUp() {
+                toggleBtnDown(btnElement, false);
+                //TODO(1.2): 1.2 fixes unbind breaking on space-seperated events, so do one unbind
+                angular.forEach(unbindEvents.split(' '), function(eventName) {
+                    target.unbind(eventName, onBtnUp);
+                });
+            }
+        };
+
+        //Exposed for testing
+        self.$mouseover = function(e) {
+            var target = angular.element(e.target);
+            var btnElement = parentWithClass(target, 'ui-btn');
+            if (btnElement && !btnElement.hasClass('ui-btn-down-' + target.scope().$theme)) {
+                toggleBtnHover(btnElement, true);
+                target.bind('mouseout', onBtnMouseout);
+            }
+            function onBtnMouseout() {
+                toggleBtnHover(btnElement, false);
+                target.unbind('mouseout', onBtnMouseout);
+            }
+        };
+
+        element[0].addEventListener('touchstart', self.$mousedown, true);
+        element[0].addEventListener('mousedown', self.$mousedown, true);
+        element[0].addEventListener('mouseover', self.$mouseover, true);
+
+        return self;
+
+        function toggleBtnDown(el, isDown) {
+            var theme = el.scope().$theme;
+            el.toggleClass('ui-btn-down-' + theme, isDown);
+            el.toggleClass('ui-btn-up-' + theme, !isDown);
+        }
+        function toggleBtnHover(el, isHover) {
+            var theme = el.scope().$theme;
+            el.toggleClass('ui-btn-hover-' + theme, isHover);
+        }
+        function parentWithClass(el, className) {
+            var maxDepth = 5;
+            var current = el;
+            while (current.length && maxDepth--) {
+                if (current.hasClass(className)) {
+                    return current;
+                }
+                current = current.parent();
+            }
+            return null;
+        }
+
+    };
+});
+
 /**
  * @ngdoc object
  * @name jqm.jqmConfigProvider
@@ -2754,10 +2919,10 @@ jqmModule.factory('$loadDialog', ['$rootElement', '$rootScope', function ($rootE
     var showCalls = [];
     var loadingClass = 'ui-loading';
 
-    var defaultTemplate = angular.element("<div class='ui-loader ui-corner-all'>" +
+    var defaultTemplate = angular.element("<div class='ui-loader ui-corner-all ui-body-d'>" +
         "   <span class='ui-icon ui-icon-loading'></span>" +
         "   <h1></h1>" +
-        "</div><div class='ui-loader-background'></div>");
+        "</div>");
 
     $rootElement.append(defaultTemplate);
     defaultTemplate.bind("click", onClick);
@@ -2793,7 +2958,17 @@ jqmModule.factory('$loadDialog', ['$rootElement', '$rootScope', function ($rootE
             $rootElement.addClass(loadingClass);
         } else {
             $rootElement.removeClass(loadingClass);
+            if (modalBackroundExist()) { lastDivOfRootElement().remove(); }
         }
+    }
+
+    function lastDivOfRootElement() {
+        var divs = $rootElement.find('div');
+        return angular.element(divs[divs.length - 1]);
+    }
+
+    function modalBackroundExist() {
+        return lastDivOfRootElement().hasClass('ui-loader-background');
     }
 
     /**
@@ -2826,6 +3001,28 @@ jqmModule.factory('$loadDialog', ['$rootElement', '$rootScope', function ($rootE
 
         showCalls.push({msg: msg, callback: tapCallback});
         updateUI();
+    }
+
+    /**
+     * @ngdoc method
+     * @name jqm.$loadDialog#showModal
+     * @methodOf jqm.$loadDialog
+     *
+     * @description
+     * Opens the wait dialog in modal mode and shows the given message (if existing).
+     * If the user clicks on the wait dialog the given callback is called.
+     * This can be called even if the dialog is currently showing. It will
+     * then change the message and revert back to the last message when
+     * the hide function is called.
+     *
+     * @param {string=} message The message to be shown when the wait dialog is displayed.
+     * @param {function=} callback The Callback that is executed when the wait dialog is clicked.
+     *
+     */
+    function showModal() {
+        var backgroundElement = angular.element("<div class='ui-loader-background'></div>");
+        if (! modalBackroundExist()) { $rootElement.append(backgroundElement); }
+        show(arguments[0], arguments[1]);
     }
 
     /**
@@ -2889,6 +3086,7 @@ jqmModule.factory('$loadDialog', ['$rootElement', '$rootScope', function ($rootE
 
     return {
         show: show,
+        showModal: showModal,
         hide: hide,
         waitFor: waitFor,
         waitForWithCancel: waitForWithCancel
@@ -3260,6 +3458,7 @@ angular.module("templates/jqmCheckbox.html", []).run(["$templateCache", function
     "           'ui-btn-active':$scopeAs.jqmCheckbox.isActive(),\n" +
     "           'ui-btn-icon-left': $scopeAs.jqmCheckbox.getIconPos()!='right', 'ui-btn-icon-right': $scopeAs.jqmCheckbox.getIconPos()=='right'}\"\n" +
     "           ng-click=\"$scopeAs.jqmCheckbox.toggleChecked()\"\n" +
+    "           jqm-once-class=\"ui-btn-up-{{$scopeAs.jqmCheckbox.$theme}}\"\n" +
     "           class=\"ui-btn ui-btn-corner-all\">\n" +
     "        <span class=\"ui-btn-inner\">\n" +
     "            <span class=\"ui-btn-text\" ng-transclude></span>\n" +
@@ -3310,7 +3509,7 @@ angular.module("templates/jqmFlip.html", []).run(["$templateCache", function($te
 angular.module("templates/jqmLiEntry.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/jqmLiEntry.html",
     "<li class=\"ui-li\" jqm-scope-as=\"jqmLi\"\n" +
-    "  jqm-once-class=\"{{$scopeAs.jqmLi.divider ? 'ui-li-divider ui-bar-'+$theme : 'ui-li-static jqm-active-toggle'}}\"\n" +
+    "jqm-once-class=\"{{$scopeAs.jqmLi.divider ? 'ui-li-divider ui-bar-'+$scopeAs.jqmLi.$theme : 'ui-li-static ui-btn-up-'+$scopeAs.jqmLi.$theme}}\"\n" +
     "  jqm-class=\"{'ui-first-child': $scopeAs.jqmLi.$position.first, 'ui-last-child': $scopeAs.jqmLi.$position.last}\"\n" +
     "  ng-transclude>\n" +
     "</li>\n" +
@@ -3320,7 +3519,7 @@ angular.module("templates/jqmLiEntry.html", []).run(["$templateCache", function(
 angular.module("templates/jqmLiLink.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/jqmLiLink.html",
     "<li class=\"ui-li ui-btn\" jqm-scope-as=\"jqmLiLink\"\n" +
-    "  jqm-once-class=\"{{$scopeAs.jqmLiLink.icon ? 'ui-li-has-arrow ui-btn-icon-'+$scopeAs.jqmLiLink.iconpos : ''}}\"\n" +
+    "jqm-once-class=\"{{$scopeAs.jqmLiLink.icon ? 'ui-li-has-arrow ui-btn-icon-'+$scopeAs.jqmLiLink.iconpos : ''}} ui-btn-up-{{$theme}}\"\n" +
     "  jqm-class=\"{'ui-first-child': $scopeAs.jqmLiLink.$position.first, \n" +
     "    'ui-last-child': $scopeAs.jqmLiLink.$position.last, \n" +
     "    'ui-li-has-thumb': $scopeAs.jqmLiLink.hasThumb, \n" +
@@ -3364,9 +3563,10 @@ angular.module("templates/jqmPanelContainer.html", []).run(["$templateCache", fu
   $templateCache.put("templates/jqmPanelContainer.html",
     "<div jqm-scope-as=\"pc\" ng-transclude class=\"jqm-panel-container\">\n" +
     "    <div class=\"ui-panel-dismiss\"\n" +
-    "        ng-click=\"$scopeAs.pc.openPanelName = null\" ng-class=\"{\'ui-panel-dismiss-open\' : $scopeAs.pc.openPanelName}\"\n" +
+    "        ng-click=\"$scopeAs.pc.openPanelName = null\" ng-class=\"{'ui-panel-dismiss-open' : $scopeAs.pc.openPanelName}\"\n" +
     "    ></div>\n" +
-    "</div>");
+    "</div>\n" +
+    "");
 }]);
 
 angular.module("templates/jqmPopup.html", []).run(["$templateCache", function($templateCache) {
@@ -3393,26 +3593,28 @@ angular.module("templates/jqmTextarea.html", []).run(["$templateCache", function
   $templateCache.put("templates/jqmTextarea.html",
     "<textarea\n" +
     "        jqm-scope-as=\"jqmTextarea\"\n" +
-    "        ng-class=\"{\'ui-disabled mobile-textinput-disabled ui-state-disabled\' : $scopeAs.jqmTextarea.disabled}\"\n" +
+    "        ng-class=\"{'ui-disabled mobile-textinput-disabled ui-state-disabled' : $scopeAs.jqmTextarea.disabled}\"\n" +
     "        class=\"ui-input-text ui-corner-all ui-shadow-inset ui-body-{{$scopeAs.jqmTextarea.$theme}}\">\n" +
-    "</textarea>");
+    "</textarea>\n" +
+    "");
 }]);
 
 angular.module("templates/jqmTextinput.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/jqmTextinput.html",
     "<div jqm-scope-as=\"jqmTextinput\"\n" +
     "     ng-class=\"{\n" +
-    "        \'ui-input-has-clear\': ($scopeAs.jqmTextinput.clearBtn && !$scopeAs.jqmTextinput.isSearch()),\n" +
-    "        \'ui-disabled\': $scopeAs.jqmTextinput.disabled,\n" +
-    "        \'ui-mini\': $scopeAs.jqmTextinput.mini,\n" +
-    "        \'ui-input-search ui-btn-corner-all ui-icon-searchfield\': $scopeAs.jqmTextinput.type === 'search',\n" +
-    "        \'ui-input-text ui-corner-all\': !$scopeAs.jqmTextinput.isSearch()}\"\n" +
+    "        'ui-input-has-clear': ($scopeAs.jqmTextinput.clearBtn && !$scopeAs.jqmTextinput.isSearch()),\n" +
+    "        'ui-disabled': $scopeAs.jqmTextinput.disabled,\n" +
+    "        'ui-mini': $scopeAs.jqmTextinput.mini,\n" +
+    "        'ui-input-search ui-btn-corner-all ui-icon-searchfield': $scopeAs.jqmTextinput.type === 'search',\n" +
+    "        'ui-input-text ui-corner-all': !$scopeAs.jqmTextinput.isSearch()}\"\n" +
     "     class=\"ui-shadow-inset ui-btn-shadow ui-body-{{$scopeAs.jqmTextinput.$theme}}\">\n" +
     "    <input type=\"{{$scopeAs.jqmTextinput.typeValue}}\" class=\"ui-input-text ui-body-{{$scopeAs.jqmTextinput.$theme}}\"\n" +
-    "           ng-class=\"{\'mobile-textinput-disabled ui-state-disabled\': $scopeAs.jqmTextinput.disabled}\" placeholder=\"{{$scopeAs.jqmTextinput.placeholder}}\">\n" +
-    "    <a ng-if=\"$scopeAs.jqmTextinput.clearBtn || $scopeAs.jqmTextinput.type === 'search'\" href=\"#\" ng-class=\"{\'ui-input-clear-hidden\': !getValue()}\"\n" +
+    "           ng-class=\"{'mobile-textinput-disabled ui-state-disabled': $scopeAs.jqmTextinput.disabled}\" placeholder=\"{{$scopeAs.jqmTextinput.placeholder}}\">\n" +
+    "    <a ng-if=\"$scopeAs.jqmTextinput.clearBtn || $scopeAs.jqmTextinput.type === 'search'\" href=\"#\" ng-class=\"{'ui-input-clear-hidden': !getValue()}\"\n" +
     "       ng-click=\"clearValue($event)\"\n" +
     "       class=\"ui-input-clear ui-btn ui-shadow ui-btn-corner-all ui-fullsize ui-btn-icon-notext\"\n" +
+    "       jqm-once-class=\"ui-btn-up-{{$theme}}\"\n" +
     "       title=\"{{clearBtnTextValue}}\">\n" +
     "   <span class=\"ui-btn-inner\">\n" +
     "                   <span class=\"ui-btn-text\" ng-bind=\"clearBtnTextValue\"></span>\n" +
@@ -3420,10 +3622,11 @@ angular.module("templates/jqmTextinput.html", []).run(["$templateCache", functio
     "               </span>\n" +
     "    </a>\n" +
     "\n" +
-    "</div>");
+    "</div>\n" +
+    "");
 }]);
 
-angular.element(window.document).find('head').append('<style type="text/css">* {\n    -webkit-backface-visibility-hidden;\n}\nhtml, body {\n    -webkit-user-select: none;\n}\n\n/* browser resets */\n.ui-mobile, .ui-mobile html, .ui-mobile body {\n    height: 100%;\n    margin: 0\n}\n\n.ui-footer {\n    position: absolute;\n    bottom: 0;\n    width: 100%;\n    z-index: 1\n}\n\n.ui-header {\n    position: absolute;\n    top: 0;\n    width: 100%;\n    z-index: 1\n}\n\n.ui-mobile .ui-page {\n    height: 100%;\n    min-height: 0;\n    overflow: hidden;\n}\n.ui-content {\n    position: relative;\n    margin: 0;\n    padding: 0;\n}\n.ui-content.jqm-content-with-header {\n    margin-top: 42px\n}\n\n.ui-content.jqm-content-with-footer {\n    margin-bottom: 43px\n}\n.jqm-standalone-page {\n    display: block;\n    position: relative;\n}\n\n.ui-panel {\n  position: absolute;\n}\n\n.ui-panel-closed {\n  display: none;\n}\n\n.ui-panel.ui-panel-opened {\n  z-index: 1001;\n}\n.ui-panel-dismiss {\n  z-index: 1000; /* lower than ui-panel */\n}\n\n.ui-panel-content-wrap {\n    height: 100%\n}\n\n.jqm-panel-container {\n    position: relative;\n    width: 100%;\n    height: 100%;\n}\n\n\n.ui-mobile-viewport {\n    /* needed to allow multiple viewports */\n    position: relative;\n    height:100%\n}\n</style>');})(window, angular);
+angular.element(window.document).find('head').append('<style type="text/css">* {\n    -webkit-backface-visibility-hidden;\n}\nhtml, body {\n    -webkit-user-select: none;\n}\n\n/* browser resets */\n.ui-mobile, .ui-mobile html, .ui-mobile body {\n    height: 100%;\n    margin: 0\n}\n\n.ui-footer {\n    position: absolute;\n    bottom: 0;\n    width: 100%;\n    z-index: 1\n}\n\n.ui-header {\n    position: absolute;\n    top: 0;\n    width: 100%;\n    z-index: 1\n}\n\n.ui-mobile .ui-page {\n    height: 100%;\n    min-height: 0;\n    overflow: hidden;\n}\n.ui-content {\n    position: relative;\n    margin: 0;\n    padding: 0;\n}\n.ui-content.jqm-content-with-header {\n    margin-top: 42px\n}\n\n.ui-content.jqm-content-with-footer {\n    margin-bottom: 43px\n}\n.jqm-standalone-page {\n    display: block;\n    position: relative;\n}\n\n.ui-panel {\n  position: absolute;\n}\n\n.ui-panel-closed {\n  display: none;\n}\n\n.ui-panel.ui-panel-opened {\n  z-index: 1001;\n}\n.ui-panel-dismiss {\n  z-index: 1000; /* lower than ui-panel */\n}\n\n.ui-panel-content-wrap {\n    height: 100%\n}\n\n.jqm-panel-container {\n    position: relative;\n    width: 100%;\n    height: 100%;\n}\n\n\n.ui-mobile-viewport {\n    /* needed to allow multiple viewports */\n    position: relative;\n    height:100%\n}\n\n.ui-loader-background { \n  display: none;\n}\n\n.ui-loading .ui-loader-background {\n  display: block;\n  background: rgba(90,90,90,.5);\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  width: auto;\n  z-index: 99999;\n  margin: 0;\n}</style>');})(window, angular);
 /*
  * angular-scrolly - v0.0.4 - 2013-08-13
  * http://github.com/ajoslin/angular-scrolly
@@ -3970,13 +4173,6 @@ angular.module('ui.bootstrap.position', [])
  */
   .factory('$position', ['$document', '$window', function ($document, $window) {
 
-    var mouseX, mouseY;
-
-    $document.bind('mousemove', function mouseMoved(event) {
-      mouseX = event.pageX;
-      mouseY = event.pageY;
-    });
-
     function getStyle(el, cssprop) {
       if (el.currentStyle) { //IE
         return el.currentStyle[cssprop];
@@ -4040,16 +4236,9 @@ angular.module('ui.bootstrap.position', [])
         return {
           width: element.prop('offsetWidth'),
           height: element.prop('offsetHeight'),
-          top: boundingClientRect.top + ($window.pageYOffset || $document[0].body.scrollTop),
-          left: boundingClientRect.left + ($window.pageXOffset || $document[0].body.scrollLeft)
+          top: boundingClientRect.top + ($window.pageYOffset || $document[0].body.scrollTop || $document[0].documentElement.scrollTop),
+          left: boundingClientRect.left + ($window.pageXOffset || $document[0].body.scrollLeft  || $document[0].documentElement.scrollLeft)
         };
-      },
-
-      /**
-       * Provides the coordinates of the mouse
-       */
-      mouse: function () {
-        return {x: mouseX, y: mouseY};
       }
     };
   }]);
