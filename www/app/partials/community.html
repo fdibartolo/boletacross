@@ -1,14 +1,16 @@
 <div jqm-page>
-  <div class="page_title">
-    <p>{{currentStats.tournament_name}}</p>
-    <span>{{currentStats.group_name || 'Ranking General'}}</span>
+  <div ng-show="currentStats !== undefined">
+    <div class="page_title">
+      <p>{{currentStats.tournament_name}}</p>
+      <span>{{currentStats.group_name || 'Ranking General'}}</span>
+    </div>
+    <table id="ranking_table">
+      <p id="ranking_points_header">Puntos</p>
+      <tr ng-repeat="r in currentStats.ranking" ng-class="{my_ranking_row: currentUserNickName==r.nick_name}">
+        <td width="15%">{{r.position}}</td>
+        <td width="70%">{{r.nick_name}}</td>
+        <td width="15%">{{r.points}}</td>
+      </tr>
+    </table>
   </div>
-  <table id="ranking_table">
-    <p id="ranking_points_header">Puntos</p>
-    <tr ng-repeat="r in currentStats.ranking" ng-class="{my_ranking_row: currentUserNickName==r.nick_name}">
-      <td width="15%">{{r.position}}</td>
-      <td width="70%">{{r.nick_name}}</td>
-      <td width="15%">{{r.points}}</td>
-    </tr>
-  </table>
 </div>
